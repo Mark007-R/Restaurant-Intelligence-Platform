@@ -3,25 +3,25 @@
 
 <style>
   .auth-container {
-    max-width: 500px;
-    margin: 3rem auto;
+    max-width: 480px;
+    margin: 2.5rem auto 1rem;
     padding: 0;
   }
 
   .auth-card {
-    background: rgba(17, 28, 47, 0.95);
-    backdrop-filter: blur(20px);
-    border-radius: 2rem;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
     overflow: hidden;
-    animation: fadeInUp 0.6s ease;
+    position: relative;
+    animation: fadeInUp .6s ease;
   }
 
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(24px);
     }
     to {
       opacity: 1;
@@ -30,106 +30,117 @@
   }
 
   .auth-header {
-    background: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
-    padding: 2.5rem 2rem;
+    padding: 2.5rem 2rem 1rem;
     text-align: center;
     position: relative;
-    overflow: hidden;
   }
 
+  /* the product's single accent -> accent-soft gradient: a hairline on the auth card */
   .auth-header::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-    animation: rotate 20s linear infinite;
-  }
-
-  @keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
   }
 
   .auth-header h2 {
-    color: #fff;
-    font-weight: 800;
+    font-family: var(--font-display);
+    color: var(--ink);
+    font-weight: 700;
     font-size: 2rem;
+    letter-spacing: -.02em;
     margin: 0;
-    position: relative;
-    z-index: 1;
   }
 
   .auth-header i {
-    font-size: 3rem;
-    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
     margin-bottom: 1rem;
-    position: relative;
-    z-index: 1;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    color: var(--accent);
+    background: var(--accent-tint);
+    border: 1px solid var(--accent-line);
   }
 
   .auth-body {
-    padding: 2.5rem 2rem;
+    padding: 1.5rem 2.25rem 2rem;
   }
 
   .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .form-label {
-    color: #e2e8f0;
-    font-weight: 600;
-    margin-bottom: 0.6rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    margin-bottom: .55rem;
   }
 
-  .form-label i {
-    color: #14b8a6;
+  .password-toggle {
+    position: relative;
   }
 
-  .form-control {
-    background: rgba(30, 41, 59, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
-    color: #e2e8f0;
-    padding: 0.9rem 1.2rem;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+  .password-toggle .form-control {
+    padding-right: 3rem;
   }
 
-  .form-control:focus {
-    background: rgba(30, 41, 59, 0.95);
-    border-color: #14b8a6;
-    box-shadow: 0 0 0 0.2rem rgba(20, 184, 166, 0.25);
-    color: #fff;
+  .password-toggle-btn {
+    position: absolute;
+    right: .6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    border-radius: 999px;
+    color: var(--ink-3);
+    cursor: pointer;
+    padding: .4rem .55rem;
+    line-height: 1;
+    transition: color var(--ease), background var(--ease);
   }
 
-  .form-control::placeholder {
-    color: #64748b;
+  .password-toggle-btn:hover,
+  .password-toggle-btn:focus-visible {
+    color: var(--accent);
+    background: var(--accent-tint);
+    outline: none;
   }
 
   .btn-login {
-    background: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
-    border: none;
-    border-radius: 1rem;
-    color: #fff;
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
     width: 100%;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(20, 184, 166, 0.4);
+    margin-top: 1.25rem;
+    padding: .9rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--on-accent);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    box-shadow: 0 2px 12px var(--accent-glow);
     cursor: pointer;
+    transition: background var(--ease), border-color var(--ease), transform var(--ease), box-shadow var(--ease);
   }
 
   .btn-login:hover {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(20, 184, 166, 0.6);
+    box-shadow: 0 10px 28px var(--accent-glow);
+  }
+
+  .btn-login:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-glow);
   }
 
   .btn-login:active {
@@ -138,42 +149,36 @@
 
   .auth-footer {
     text-align: center;
-    padding: 1.5rem 2rem 2rem;
-    color: #94a3b8;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.1rem 2rem 1.3rem;
+    font-size: .9rem;
+    color: var(--ink-3);
+    background: var(--bg-alt);
+    border-top: 1px solid var(--line);
   }
 
   .auth-footer a {
-    color: #14b8a6;
-    text-decoration: none;
+    color: var(--accent);
     font-weight: 600;
-    transition: color 0.3s ease;
+    text-decoration: none;
   }
 
   .auth-footer a:hover {
-    color: #0ea5e9;
+    color: var(--accent-strong);
     text-decoration: underline;
   }
 
-  .password-toggle {
-    position: relative;
-  }
+  @media (max-width: 480px) {
+    .auth-container {
+      margin-top: 1rem;
+    }
 
-  .password-toggle-btn {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: #94a3b8;
-    cursor: pointer;
-    padding: 0.5rem;
-    transition: color 0.3s ease;
-  }
+    .auth-body {
+      padding: 1.25rem 1.25rem 1.5rem;
+    }
 
-  .password-toggle-btn:hover {
-    color: #14b8a6;
+    .auth-header h2 {
+      font-size: 1.7rem;
+    }
   }
 </style>
 

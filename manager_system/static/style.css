@@ -1,247 +1,1069 @@
-body.theme-dark {
-    color: var(--dark-color);
+/* ==========================================================================
+   RestoAI — shared paper theme
+   Served by Flask at /static/style.css (static_folder = manager_system/static)
+   and linked from BOTH template trees' base.html, so this file is the single
+   source of truth for tokens and app chrome.
+
+   Accent: Brick. Fonts are linked from base.html:
+   Fraunces (display) · Inter (body) · JetBrains Mono (micro-labels)
+   ========================================================================== */
+
+:root {
+  /* ---- paper ---- */
+  --bg: #fefaf5;
+  --bg-alt: #faf2e9;
+  --card: #fffdfa;
+  --card-hover: #ffffff;
+  --ink: #1c1714;
+  --ink-2: #57504a;
+  --ink-3: #756c65;
+  --line: #e9dbcd;
+  --line-strong: #d8c3b2;
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 8px;
+  --shadow-sm: 0 1px 2px rgba(60, 40, 20, .04), 0 4px 16px rgba(60, 40, 20, .05);
+  --shadow-md: 0 2px 4px rgba(60, 40, 20, .05), 0 14px 38px rgba(60, 40, 20, .09);
+  --shadow-lg: 0 4px 10px rgba(60, 40, 20, .06), 0 22px 54px rgba(60, 40, 20, .12);
+  --ease: .25s cubic-bezier(.4, 0, .2, 1);
+
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  /* ---- accent: brick ---- */
+  --accent: #9A3B26;
+  --accent-strong: #7A2F1E;
+  --accent-soft: #BE6450;
+  --accent-tint: rgba(154, 59, 38, .06);
+  --accent-glow: rgba(154, 59, 38, .14);
+  --accent-line: rgba(154, 59, 38, .24);
+  --on-accent: #fefaf5;
+
+  /* ---- status: same meaning in every project ---- */
+  --ok: #3f7a3a;
+  --ok-tint: rgba(63, 122, 58, .10);
+  --warn: #a86a12;
+  --warn-tint: rgba(168, 106, 18, .10);
+  --bad: #b3261e;
+  --bad-tint: rgba(179, 38, 30, .08);
+  --info: #2f5f8a;
+  --info-tint: rgba(47, 95, 138, .09);
+
+  /* ---- legacy names kept so inline style="..." attributes still resolve ---- */
+  --primary-color: var(--accent);
+  --primary-dark: var(--accent-strong);
+  --secondary-color: var(--warn);
+  --accent-color: var(--accent-soft);
+  --success-color: var(--ok);
+  --warning-color: var(--warn);
+  --danger-color: var(--bad);
+  --dark-color: var(--ink);
+  --light-bg: var(--bg);
+  --panel-bg: var(--bg-alt);
+  --panel-elevated: var(--card);
+  --border-color: var(--line);
+  --text-muted: var(--ink-3);
+  --card-shadow: var(--shadow-sm);
+  --card-shadow-hover: var(--shadow-md);
+  /* the one gradient this product uses: accent -> accent-soft */
+  --gradient-primary: linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 100%);
+  --primary-gradient: var(--gradient-primary);
+  --gradient-bg: var(--bg);
+  --gradient-success: var(--ok);
+  --gradient-accent: var(--accent-soft);
+  --success-gradient: var(--ok);
+  --danger-gradient: var(--bad);
+  --info-gradient: var(--info);
+  --warning-gradient: var(--warn);
 }
 
-body.theme-dark::before {
-    background:
-        radial-gradient(circle at 20% 50%, rgba(20, 184, 166, 0.18) 0%, transparent 55%),
-        radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.16) 0%, transparent 55%);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body.theme-dark h1,
-body.theme-dark h2,
-body.theme-dark h3 {
-    font-family: 'Fraunces', 'Space Grotesk', serif;
-    color: var(--dark-color) !important;
+/* ---- the paper, with the faint accent dot texture ---- */
+html {
+  background-color: var(--bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cg fill='%239A3B26'%3E%3Ccircle cx='52' cy='71' r='1.4' opacity='.28'/%3E%3Ccircle cx='178' cy='38' r='.9' opacity='.22'/%3E%3Ccircle cx='312' cy='95' r='1.6' opacity='.3'/%3E%3Ccircle cx='458' cy='52' r='1' opacity='.24'/%3E%3Ccircle cx='546' cy='128' r='1.3' opacity='.26'/%3E%3Ccircle cx='96' cy='188' r='1.1' opacity='.25'/%3E%3Ccircle cx='236' cy='222' r='1.5' opacity='.28'/%3E%3Ccircle cx='392' cy='176' r='.9' opacity='.2'/%3E%3Ccircle cx='508' cy='246' r='1.4' opacity='.27'/%3E%3Ccircle cx='28' cy='298' r='1.2' opacity='.24'/%3E%3Ccircle cx='158' cy='344' r='1.6' opacity='.3'/%3E%3Ccircle cx='286' cy='312' r='1' opacity='.22'/%3E%3Ccircle cx='430' cy='366' r='1.3' opacity='.26'/%3E%3Ccircle cx='566' cy='402' r='1.1' opacity='.23'/%3E%3Ccircle cx='72' cy='452' r='1.5' opacity='.29'/%3E%3Ccircle cx='204' cy='486' r='.9' opacity='.21'/%3E%3Ccircle cx='348' cy='438' r='1.4' opacity='.27'/%3E%3Ccircle cx='482' cy='528' r='1.2' opacity='.25'/%3E%3Ccircle cx='128' cy='566' r='1.3' opacity='.26'/%3E%3Ccircle cx='268' cy='592' r='1' opacity='.22'/%3E%3Ccircle cx='412' cy='556' r='1.5' opacity='.28'/%3E%3Ccircle cx='588' cy='486' r='.9' opacity='.2'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  scroll-behavior: smooth;
 }
 
-body.theme-dark p,
-body.theme-dark small,
-body.theme-dark .text-muted {
-    color: var(--text-muted) !important;
+body {
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  /* keeps the footer on the bottom edge of short pages (login, signup) */
+  display: flex;
+  flex-direction: column;
 }
 
-body.theme-dark nav.navbar {
-    background: rgba(11, 18, 32, 0.95) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+body>.container {
+  width: 100%;
+  flex: 1 0 auto;
 }
 
-body.theme-dark .main-container {
-    background: rgba(17, 28, 47, 0.95) !important;
-    border: 1px solid var(--border-color) !important;
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
-body.theme-dark .card,
-body.theme-dark .search-container,
-body.theme-dark .upload-section,
-body.theme-dark .chat-info,
-body.theme-dark #chat-box,
-body.theme-dark #chat-form,
-body.theme-dark .feature-card,
-body.theme-dark .source-breakdown,
-body.theme-dark .category-section,
-body.theme-dark .viz-card,
-body.theme-dark .review-item,
-body.theme-dark .stat-card,
-body.theme-dark .stat-box,
-body.theme-dark .category-breakdown,
-body.theme-dark .recommendation-card {
-    background: var(--panel-elevated) !important;
-    border-color: var(--border-color) !important;
-    box-shadow: var(--card-shadow) !important;
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-body.theme-dark .hero-section,
-body.theme-dark .chat-header {
-    background: linear-gradient(135deg, rgba(20, 184, 166, 0.14) 0%, rgba(14, 165, 233, 0.12) 100%) !important;
-    border: 1px solid var(--border-color) !important;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-body.theme-dark .hero-section::before,
-body.theme-dark .chat-header::before {
-    background: radial-gradient(circle, rgba(20, 184, 166, 0.18) 0%, transparent 70%) !important;
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 4px;
 }
 
-body.theme-dark .hero-section p,
-body.theme-dark .chat-header p,
-body.theme-dark .chat-info-content small {
-    color: var(--text-muted) !important;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
 }
 
-body.theme-dark .search-container h4,
-body.theme-dark .upload-section label,
-body.theme-dark .form-label,
-body.theme-dark .chat-info-content strong,
-body.theme-dark .card-title,
-body.theme-dark .feature-card h5,
-body.theme-dark .section-header h3,
-body.theme-dark .source-breakdown h4,
-body.theme-dark .category-section h4,
-body.theme-dark .viz-card h4,
-body.theme-dark .results-header h2,
-body.theme-dark .recommendations-header h2,
-body.theme-dark .section-title {
-    color: var(--dark-color) !important;
+/* ---- type ---- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  letter-spacing: -.015em;
+  line-height: 1.2;
+  text-wrap: balance;
 }
 
-body.theme-dark .restaurant-card,
-body.theme-dark .feature-card,
-body.theme-dark .stat-card,
-body.theme-dark .stat-box,
-body.theme-dark .viz-card,
-body.theme-dark .review-item {
-    background: var(--panel-elevated) !important;
+h1 {
+  font-weight: 700;
 }
 
-body.theme-dark .restaurant-card .card-title,
-body.theme-dark .feature-card p,
-body.theme-dark .stat-card p,
-body.theme-dark .stat-box p,
-body.theme-dark .section-header p,
-body.theme-dark .source-item,
-body.theme-dark .category-tag {
-    color: var(--text-muted) !important;
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
 }
 
-body.theme-dark .rating-badge {
-    background: var(--gradient-accent) !important;
-    box-shadow: 0 6px 18px rgba(249, 115, 22, 0.35) !important;
+h1 em,
+h2 em,
+.accent-italic {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 600;
 }
 
-body.theme-dark .source-badge {
-    background: rgba(11, 18, 32, 0.92) !important;
-    color: #5eead4 !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+p {
+  color: var(--ink-2);
 }
 
-body.theme-dark #chat-box {
-    border-color: var(--border-color) !important;
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--ease);
 }
 
-body.theme-dark #chat-box::-webkit-scrollbar-track {
-    background: #0b1220 !important;
+a:hover {
+  color: var(--accent-strong);
 }
 
-body.theme-dark #chat-box::-webkit-scrollbar-thumb {
-    background: var(--gradient-primary) !important;
+strong,
+b {
+  color: var(--ink);
+  font-weight: 600;
 }
 
-body.theme-dark .message-bot .message-content {
-    background: #0b1220 !important;
-    color: var(--dark-color) !important;
-    border-color: var(--border-color) !important;
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+  font-size: .85em;
 }
 
-body.theme-dark .typing-indicator {
-    background: #0b1220 !important;
-    border-color: var(--border-color) !important;
+:not(pre)>code {
+  color: var(--accent);
+  background: var(--accent-tint);
+  border-radius: 6px;
+  padding: .1em .35em;
 }
 
-body.theme-dark #question {
-    background: #0b1220 !important;
-    color: var(--dark-color) !important;
-    border-color: var(--border-color) !important;
+pre {
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  color: var(--ink);
+  overflow-x: auto;
 }
 
-body.theme-dark #question::placeholder {
-    color: var(--text-muted) !important;
+hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  opacity: 1;
+  color: inherit;
 }
 
-body.theme-dark .results-header,
-body.theme-dark .recommendations-header {
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.18) 0%, rgba(20, 184, 166, 0.18) 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+/* mono micro-labels */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
-body.theme-dark .results-header p,
-body.theme-dark .recommendations-header p {
-    color: var(--text-muted) !important;
+/* ==========================================================================
+   top bar — the floating pill nav from mark.dev
+   ========================================================================== */
+nav.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
+  padding: 16px 20px 4px;
+  transition: padding var(--ease);
 }
 
-body.theme-dark .source-item,
-body.theme-dark .category-item {
-    background: rgba(15, 23, 42, 0.75) !important;
-    border-color: var(--border-color) !important;
+nav.navbar.scrolled {
+  padding-top: 8px;
 }
 
-body.theme-dark .category-tag {
-    background: rgba(15, 23, 42, 0.85) !important;
-    border-color: var(--border-color) !important;
+nav.navbar>.container-fluid {
+  max-width: 1160px;
+  margin: 0 auto;
+  gap: 16px;
+  padding: 8px 10px 8px 22px;
+  background: rgba(254, 250, 245, .88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--ease), border-color var(--ease);
 }
 
-body.theme-dark .category-tag:hover {
-    background: var(--gradient-primary) !important;
-    color: #0b1220 !important;
+nav.navbar.scrolled>.container-fluid {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-md);
 }
 
-body.theme-dark .viz-card img {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+nav.navbar .navbar-brand {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -.02em;
+  color: var(--accent);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  transition: color var(--ease);
 }
 
-body.theme-dark .review-item.positive,
-body.theme-dark .review-item.negative,
-body.theme-dark .review-item.neutral {
-    background: rgba(15, 23, 42, 0.85) !important;
+nav.navbar .navbar-brand i {
+  font-size: 1.1rem;
+  font-style: normal;
+  color: var(--accent);
+  background: none;
+  -webkit-text-fill-color: currentColor;
 }
 
-body.theme-dark .form-control,
-body.theme-dark .form-select {
-    background: #0b1220 !important;
-    border-color: var(--border-color) !important;
-    color: var(--dark-color) !important;
+nav.navbar .navbar-brand:hover {
+  color: var(--accent-strong);
 }
 
-body.theme-dark .form-control::placeholder {
-    color: var(--text-muted) !important;
+nav.navbar .nav-link {
+  color: var(--ink-2);
+  font-size: .85rem;
+  font-weight: 500;
+  margin: 0 1px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  transition: background var(--ease), color var(--ease);
 }
 
-body.theme-dark input[type="file"]::file-selector-button {
-    background: var(--gradient-primary);
-    color: #0b1220;
-    border: none;
-    border-radius: 0.75rem;
-    padding: 0.55rem 1.1rem;
-    margin-right: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+nav.navbar .nav-link:hover {
+  color: var(--accent);
+  background: var(--accent-tint);
 }
 
-body.theme-dark input[type="file"]::file-selector-button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.35);
+nav.navbar .nav-link i {
+  margin-right: .4rem;
+  font-size: .8rem;
 }
 
-body.theme-dark input[type="file"]::-webkit-file-upload-button {
-    background: var(--gradient-primary);
-    color: #0b1220;
-    border: none;
-    border-radius: 0.75rem;
-    padding: 0.55rem 1.1rem;
-    margin-right: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+nav.navbar .navbar-toggler {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  color: var(--accent);
 }
 
-body.theme-dark input[type="file"]::-webkit-file-upload-button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.35);
+nav.navbar .navbar-toggler:focus {
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
-body.theme-dark .table {
-    color: var(--dark-color) !important;
+nav.navbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%239A3B26' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-body.theme-dark .table thead {
-    background-color: #0f766e !important;
+/* ==========================================================================
+   page shell
+   ========================================================================== */
+/* content sits straight on the dotted paper, like mark.dev; pages bring their own cards */
+.main-container {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 1.5rem 0 1rem;
+  margin: 1.25rem auto;
+  max-width: 1400px;
+  position: relative;
+  z-index: 1;
 }
 
-body.theme-dark .table td,
-body.theme-dark .table th {
-    border-bottom-color: var(--border-color) !important;
+.page-enter {
+  animation: pageEnter .5s ease;
 }
 
-body.theme-dark .table tr:hover {
-    background-color: rgba(15, 23, 42, 0.7) !important;
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   alerts
+   ========================================================================== */
+.alert {
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: .9rem 1.25rem;
+  box-shadow: none;
+  animation: slideDown .5s cubic-bezier(.4, 0, .2, 1);
+  font-size: .92rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  margin-bottom: 1.5rem;
+  color: var(--ink-2);
+  background: var(--bg-alt);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert i {
+  font-size: 1.05rem;
+}
+
+.alert .alert-link {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* status tint laid over solid paper, so alerts stay opaque when a script floats one
+   (index.html's fixed "Tip" toast) over other content */
+.alert-success,
+.alert-error,
+.alert-warning,
+.alert-danger,
+.alert-info {
+  background-color: var(--bg);
+}
+
+.alert-success {
+  color: var(--ok);
+  background-image: linear-gradient(var(--ok-tint), var(--ok-tint));
+  border-color: rgba(63, 122, 58, .25);
+}
+
+.alert-error,
+.alert-warning {
+  color: var(--warn);
+  background-image: linear-gradient(var(--warn-tint), var(--warn-tint));
+  border-color: rgba(168, 106, 18, .25);
+}
+
+.alert-danger {
+  color: var(--bad);
+  background-image: linear-gradient(var(--bad-tint), var(--bad-tint));
+  border-color: rgba(179, 38, 30, .22);
+}
+
+.alert-info {
+  color: var(--info);
+  background-image: linear-gradient(var(--info-tint), var(--info-tint));
+  border-color: rgba(47, 95, 138, .22);
+}
+
+.alert-dismissible .btn-close {
+  opacity: .5;
+  transition: opacity var(--ease);
+}
+
+.alert-dismissible .btn-close:hover {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   cards
+   ========================================================================== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  position: relative;
+  transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+
+.card:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+  transition: transform .5s cubic-bezier(.4, 0, .2, 1);
+  position: relative;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.06);
+}
+
+.card-body {
+  padding: 1.6rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.18rem;
+  color: var(--ink);
+  margin-bottom: .75rem;
+  line-height: 1.3;
+}
+
+.card-text {
+  color: var(--ink-2);
+  font-size: .92rem;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   buttons — pills
+   ========================================================================== */
+/* Bootstrap's :active / :focus-visible / .active rules read these variables,
+   so map them too or pressed buttons flash Bootstrap blue/green */
+.btn {
+  --bs-btn-color: var(--ink-2);
+  --bs-btn-bg: var(--card);
+  --bs-btn-border-color: var(--line);
+  --bs-btn-hover-color: var(--accent);
+  --bs-btn-hover-bg: var(--accent-tint);
+  --bs-btn-hover-border-color: var(--accent);
+  --bs-btn-active-color: var(--accent);
+  --bs-btn-active-bg: var(--accent-tint);
+  --bs-btn-active-border-color: var(--accent);
+  --bs-btn-disabled-color: var(--ink-3);
+  --bs-btn-disabled-bg: var(--bg-alt);
+  --bs-btn-disabled-border-color: var(--line);
+  --bs-btn-focus-box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.btn-primary,
+.btn-success {
+  --bs-btn-color: var(--on-accent);
+  --bs-btn-bg: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-color: var(--on-accent);
+  --bs-btn-hover-bg: var(--accent-strong);
+  --bs-btn-hover-border-color: var(--accent-strong);
+  --bs-btn-active-color: var(--on-accent);
+  --bs-btn-active-bg: var(--accent-strong);
+  --bs-btn-active-border-color: var(--accent-strong);
+  --bs-btn-disabled-color: var(--on-accent);
+  --bs-btn-disabled-bg: var(--accent);
+  --bs-btn-disabled-border-color: var(--accent);
+}
+
+.btn-outline-primary,
+.btn-outline-success,
+.btn-outline-secondary {
+  --bs-btn-color: var(--ink-2);
+  --bs-btn-bg: var(--bg);
+  --bs-btn-border-color: var(--line-strong);
+  --bs-btn-hover-color: var(--accent);
+  --bs-btn-hover-bg: var(--accent-tint);
+  --bs-btn-hover-border-color: var(--accent);
+  --bs-btn-active-color: var(--accent);
+  --bs-btn-active-bg: var(--accent-tint);
+  --bs-btn-active-border-color: var(--accent);
+}
+
+.btn-close {
+  --bs-btn-close-focus-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.btn {
+  font-family: var(--font-body);
+  border-radius: 999px;
+  padding: .7rem 1.6rem;
+  font-weight: 600;
+  font-size: .86rem;
+  letter-spacing: 0;
+  text-transform: none;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  transition: background var(--ease), border-color var(--ease), color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-tint);
+  transform: translateY(-1px);
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.btn-primary,
+.btn-success {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 0 2px 12px var(--accent-glow);
+}
+
+.btn-primary:hover,
+.btn-success:hover,
+.btn-primary:focus,
+.btn-success:focus,
+.btn-primary:active,
+.btn-success:active {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+  color: var(--on-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px var(--accent-glow);
+}
+
+.btn-outline-primary,
+.btn-outline-success,
+.btn-outline-secondary {
+  border: 1px solid var(--line-strong);
+  color: var(--ink-2);
+  background: var(--bg);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-success:hover,
+.btn-outline-secondary:hover,
+.btn-outline-primary:focus,
+.btn-outline-success:focus,
+.btn-outline-secondary:focus {
+  background: var(--accent-tint);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.btn-danger {
+  background: var(--bad);
+  border-color: var(--bad);
+  color: var(--on-accent);
+}
+
+.btn-danger:hover {
+  background: #8f1e18;
+  border-color: #8f1e18;
+  color: var(--on-accent);
+}
+
+.btn-sm {
+  padding: .45rem 1.1rem;
+  font-size: .8rem;
+}
+
+/* same height as .form-control-lg so the index search row lines up */
+.btn-lg {
+  padding: .95rem 1.9rem;
+  font-size: .92rem;
+}
+
+.btn:disabled,
+.btn.disabled {
+  opacity: .5;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   forms
+   ========================================================================== */
+.form-control,
+.form-select {
+  font-family: var(--font-body);
+  font-size: .95rem;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: .7rem 1rem;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.form-control:focus,
+.form-select:focus {
+  background: var(--card-hover);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+  color: var(--ink);
+  outline: none;
+}
+
+.form-control::placeholder {
+  color: #a89a8f;
+}
+
+.form-control-lg {
+  padding: .85rem 1.15rem;
+  font-size: 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.form-label {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: .6rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.form-label i {
+  color: var(--accent);
+  font-size: .8rem;
+}
+
+.form-check-input {
+  border-color: var(--line-strong);
+  background-color: var(--card);
+}
+
+.form-check-input:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.form-check-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* switch knob: Bootstrap paints it blue on focus via this variable */
+.form-switch .form-check-input:focus:not(:checked) {
+  --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23BE6450'/%3e%3c/svg%3e");
+}
+
+.form-check-label {
+  color: var(--ink-2);
+}
+
+input[type="file"].form-control {
+  padding: .55rem .7rem;
+  color: var(--ink-2);
+}
+
+input[type="file"]::file-selector-button {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .8rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: none;
+  border-radius: 999px;
+  padding: .45rem 1.1rem;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: background var(--ease);
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: var(--accent-strong);
+}
+
+/* ==========================================================================
+   badges / pills
+   ========================================================================== */
+.badge {
+  font-family: var(--font-mono);
+  padding: .35rem .8rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-line);
+}
+
+.badge.bg-primary,
+.badge-primary {
+  background: var(--accent-tint) !important;
+  color: var(--accent) !important;
+  border-color: var(--accent-line);
+}
+
+.badge.bg-success,
+.badge-success {
+  background: var(--ok-tint) !important;
+  color: var(--ok) !important;
+  border-color: rgba(63, 122, 58, .25);
+}
+
+.badge.bg-danger {
+  background: var(--bad-tint) !important;
+  color: var(--bad) !important;
+  border-color: rgba(179, 38, 30, .22);
+}
+
+.badge.bg-warning {
+  background: var(--warn-tint) !important;
+  color: var(--warn) !important;
+  border-color: rgba(168, 106, 18, .25);
+}
+
+.badge.bg-info {
+  background: var(--info-tint) !important;
+  color: var(--info) !important;
+  border-color: rgba(47, 95, 138, .22);
+}
+
+.badge.bg-secondary {
+  background: var(--bg-alt) !important;
+  color: var(--ink-3) !important;
+  border-color: var(--line);
+}
+
+/* ==========================================================================
+   tables
+   ========================================================================== */
+.table {
+  color: var(--ink-2);
+  --bs-table-bg: transparent;
+}
+
+.table>thead {
+  background: var(--bg-alt);
+}
+
+.table th {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.table td {
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-2);
+}
+
+.table tr:hover>td {
+  background: var(--accent-tint);
+}
+
+/* ==========================================================================
+   stat card (used on several dashboards)
+   ========================================================================== */
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+
+/* stat cards are animated by AOS or page scripts that own `transform`, so hover only recolours */
+.stat-card:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-card h3 {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--accent);
+  margin-bottom: .4rem;
+  text-shadow: none;
+}
+
+.stat-card p {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--ink-3);
+}
+
+/* ==========================================================================
+   modal
+   ========================================================================== */
+.modal-content {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  color: var(--ink);
+}
+
+.modal-header,
+.modal-footer {
+  border-color: var(--line);
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.modal-body p {
+  color: var(--ink-2);
+}
+
+/* ==========================================================================
+   footer
+   ========================================================================== */
+footer {
+  background: var(--bg-alt);
+  border-top: 1px solid var(--line);
+  color: var(--ink-2);
+  padding: 2.5rem;
+  margin-top: 4rem;
+  text-align: center;
+  box-shadow: none;
+}
+
+footer p {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+footer .social-links {
+  margin-top: 1.1rem;
+}
+
+footer .social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin: 0 .3rem;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink-2);
+  font-size: .95rem;
+  transition: border-color var(--ease), color var(--ease), background var(--ease), transform var(--ease);
+}
+
+footer .social-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-tint);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   misc chrome
+   ========================================================================== */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: .3rem;
+  border-color: var(--accent);
+  border-right-color: transparent;
+}
+
+#scrollTop {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 18px var(--accent-glow);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--ease), visibility var(--ease), transform var(--ease), box-shadow var(--ease);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+#scrollTop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+#scrollTop:hover {
+  background: var(--accent-strong);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px var(--accent-glow);
+}
+
+/* bootstrap text utilities, re-pointed at the paper palette */
+.text-muted {
+  color: var(--ink-3) !important;
+}
+
+.text-primary {
+  color: var(--accent) !important;
+}
+
+.text-secondary {
+  color: var(--ink-2) !important;
+}
+
+.text-success {
+  color: var(--ok) !important;
+}
+
+.text-danger {
+  color: var(--bad) !important;
+}
+
+.text-warning {
+  color: var(--warn) !important;
+}
+
+.text-info {
+  color: var(--info) !important;
+}
+
+/* ==========================================================================
+   responsive
+   ========================================================================== */
+@media (max-width: 991.98px) {
+  nav.navbar>.container-fluid {
+    border-radius: var(--radius);
+    padding: 12px 16px;
+  }
+
+  nav.navbar .navbar-nav {
+    margin-top: .5rem;
+    gap: 2px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    padding: 1rem .25rem .5rem;
+    margin: .75rem auto;
+  }
+
+  nav.navbar {
+    padding: 10px 12px 4px;
+  }
+
+  nav.navbar .navbar-brand {
+    font-size: 1.05rem;
+  }
+
+  .card-img-top {
+    height: 180px;
+  }
+
+  .stat-card h3 {
+    font-size: 2rem;
+  }
+
+  #scrollTop {
+    width: 2.75rem;
+    height: 2.75rem;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    font-size: 1rem;
+  }
 }

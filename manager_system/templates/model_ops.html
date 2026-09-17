@@ -3,104 +3,137 @@
 
 <style>
   .ops-hero {
-    background: linear-gradient(135deg, rgba(20,184,166,0.15) 0%, rgba(118,75,162,0.10) 100%);
-    padding: 2rem 2.5rem;
-    border-radius: 1.5rem;
-    margin-bottom: 2rem;
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--bg-alt);
+    padding: 2.25rem 2.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    margin-bottom: 1.75rem;
   }
   .ops-hero h1 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin: 0 0 0.5rem 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -.025em;
+    color: var(--ink);
+    margin: 0 0 .55rem 0;
   }
-  .ops-hero p { color: var(--text-muted); margin: 0; }
+  .ops-hero h1 i { color: var(--accent); font-size: .72em; margin-right: .3rem; vertical-align: .1em; }
+  .ops-hero p { color: var(--ink-2); margin: 0; max-width: 760px; }
   .ops-section {
-    background: var(--panel-elevated);
-    border-radius: 1.25rem;
+    background: var(--card);
     padding: 1.75rem 2rem;
-    margin-bottom: 1.75rem;
-    border: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
   }
   .ops-section h2 {
+    font-family: var(--font-display);
     font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 1.25rem;
-    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 1.15rem;
+    color: var(--ink);
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: .6rem;
   }
-  .ops-section h2 i { color: var(--primary-color); }
+  .ops-section h2 i { color: var(--accent); font-size: .85em; }
+  .ops-section h3 { font-family: var(--font-display); }
+  .ops-section ul li::marker { color: var(--accent); }
   .metric-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: .85rem;
+    margin-bottom: .85rem;
   }
   .metric-tile {
-    background: rgba(15,23,42,0.6);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 1rem;
-    padding: 1.1rem 1.25rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.15rem;
+    transition: border-color var(--ease);
   }
+  .metric-tile:hover { border-color: var(--line-strong); }
   .metric-tile .label {
-    font-size: 0.78rem;
-    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: .62rem;
+    font-weight: 600;
+    color: var(--ink-3);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.45rem;
+    letter-spacing: .12em;
+    margin-bottom: .4rem;
   }
   .metric-tile .value {
-    font-size: 1.55rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--dark-color);
+    line-height: 1.2;
+    color: var(--ink);
   }
-  .metric-tile .value.muted { color: var(--text-muted); font-weight: 500; font-size: 1.2rem; }
+  .metric-tile .value.muted { font-family: var(--font-body); color: var(--ink-3); font-weight: 500; font-size: 1.1rem; }
   table.ops-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem;
+    font-size: .88rem;
+    background: transparent;
   }
   table.ops-table th, table.ops-table td {
-    padding: 0.75rem 0.9rem;
+    padding: .7rem .85rem;
     text-align: left;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid var(--line);
     vertical-align: top;
   }
   table.ops-table th {
-    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: .62rem;
     font-weight: 600;
+    letter-spacing: .12em;
     text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
+    color: var(--ink-3);
+    background: var(--bg-alt);
+    border-bottom-color: var(--line-strong);
+    white-space: nowrap;
   }
-  table.ops-table td.mono { font-family: 'Courier New', monospace; font-size: 0.85rem; }
+  table.ops-table td { color: var(--ink-2); }
+  table.ops-table td strong { color: var(--ink); }
+  table.ops-table tbody tr:hover td { background: var(--accent-tint); }
+  table.ops-table td.mono { font-family: var(--font-mono); font-size: .8rem; color: var(--ink); }
   .pill {
     display: inline-block;
-    padding: 0.2rem 0.65rem;
-    border-radius: 1rem;
-    font-size: 0.75rem;
+    padding: .18rem .65rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: .62rem;
     font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
-  .pill-ok { background: rgba(34,197,94,0.18); color: #4ade80; }
-  .pill-warn { background: rgba(245,158,11,0.18); color: #fbbf24; }
-  .pill-info { background: rgba(14,165,233,0.18); color: #38bdf8; }
+  .pill-ok { color: var(--ok); background: var(--ok-tint); border-color: rgba(63, 122, 58, .25); }
+  .pill-warn { color: var(--warn); background: var(--warn-tint); border-color: rgba(168, 106, 18, .25); }
+  .pill-info { color: var(--info); background: var(--info-tint); border-color: rgba(47, 95, 138, .22); }
   .empty-state {
     text-align: center;
     padding: 2rem;
-    color: var(--text-muted);
-    font-style: italic;
+    color: var(--ink-3);
+    background: var(--bg-alt);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-sm);
   }
+  .empty-state i { color: var(--accent-soft); margin-right: .25rem; }
   .ops-path {
-    font-family: 'Courier New', monospace;
-    background: rgba(0,0,0,0.25);
-    padding: 0.2rem 0.5rem;
-    border-radius: 0.4rem;
-    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-tint);
+    padding: .15rem .45rem;
+    border-radius: 6px;
+    font-size: .8rem;
+    word-break: break-all;
+  }
+  @media (max-width: 576px) {
+    .ops-hero { padding: 1.75rem 1.35rem; }
+    .ops-section { padding: 1.35rem; }
   }
 </style>
 

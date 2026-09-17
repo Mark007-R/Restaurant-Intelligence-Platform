@@ -5,21 +5,22 @@
   .details-hero {
     position: relative;
     height: 300px;
+    background-color: var(--bg-alt);
     background-size: cover;
     background-position: center;
-    border-radius: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
     overflow: hidden;
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
   }
 
+  /* warm ink scrim so the title stays legible on any photo */
   .details-hero::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(20, 184, 166, 0.7) 0%, rgba(14, 165, 233, 0.7) 100%);
+    inset: 0;
+    background: linear-gradient(to top, rgba(28, 23, 20, .82) 0%, rgba(28, 23, 20, .35) 55%, rgba(28, 23, 20, .05) 100%);
   }
 
   .hero-content {
@@ -27,90 +28,135 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 2rem;
-    color: white;
+    padding: 1.75rem 2rem;
+    color: var(--on-accent);
     z-index: 1;
   }
 
   .back-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
     margin-bottom: 1rem;
-    padding: 0.5rem 1.5rem;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 0.5rem;
+    padding: .5rem 1.15rem;
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: background var(--ease), border-color var(--ease), color var(--ease), transform var(--ease);
   }
 
   .back-button:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: white;
+    color: var(--accent);
+    background: var(--accent-tint);
+    border-color: var(--accent);
+    transform: translateY(-1px);
   }
 
   .restaurant-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4.2vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    color: var(--on-accent);
+    margin-bottom: .6rem;
   }
 
   .restaurant-meta {
     display: flex;
-    gap: 2rem;
-    font-size: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .6rem 1.5rem;
+    font-size: .95rem;
+    color: rgba(254, 250, 245, .92);
   }
 
   .meta-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: .5rem;
   }
 
   .info-section {
-    background: rgba(17, 28, 47, 0.95);
-    border-radius: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
     padding: 2rem;
-    margin-bottom: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.75rem;
+  }
+
+  .info-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .info-section h2 i {
+    color: var(--accent);
+    font-size: .8em;
+    margin-right: .25rem;
+  }
+
+  .info-section h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
   }
 
   .tabs-container {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    gap: .25rem;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid var(--line);
     overflow-x: auto;
   }
 
   .tab-button {
-    padding: 1rem 2rem;
+    padding: .8rem 1.15rem;
     background: transparent;
     border: none;
-    color: #94a3b8;
+    color: var(--ink-3);
     cursor: pointer;
+    font-family: var(--font-body);
+    font-size: .9rem;
     font-weight: 600;
     position: relative;
     white-space: nowrap;
-    transition: all 0.3s ease;
+    transition: color var(--ease);
+  }
+
+  .tab-button i {
+    margin-right: .3rem;
+    font-size: .85em;
   }
 
   .tab-button:hover {
-    color: #e2e8f0;
+    color: var(--ink);
+  }
+
+  .tab-button:focus-visible {
+    outline: none;
+    color: var(--accent);
+    box-shadow: inset 0 0 0 2px var(--accent-glow);
+    border-radius: var(--radius-xs);
   }
 
   .tab-button.active {
-    color: #14b8a6;
+    color: var(--accent);
   }
 
   .tab-button.active::after {
     content: '';
     position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
+    bottom: -1px;
+    left: .6rem;
+    right: .6rem;
     height: 2px;
-    background: linear-gradient(135deg, #14b8a6 0%, #0ea5e9 100%);
+    border-radius: 2px;
+    background: var(--accent);
   }
 
   .tab-content {
@@ -119,7 +165,7 @@
 
   .tab-content.active {
     display: block;
-    animation: fadeIn 0.3s ease;
+    animation: fadeIn .3s ease;
   }
 
   @keyframes fadeIn {
@@ -130,153 +176,156 @@
   .reviews-list {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .review-item {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem 1.5rem;
+    transition: border-color var(--ease), box-shadow var(--ease);
   }
 
   .review-item:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: #14b8a6;
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-sm);
   }
 
   .review-header {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    gap: .6rem;
+    margin-bottom: .75rem;
+  }
+
+  .review-text {
+    color: var(--ink-2);
+    line-height: 1.75;
+    margin-bottom: .6rem;
   }
 
   .review-rating {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    color: #f59e0b;
+    gap: .2rem;
+    padding: .28rem .8rem;
+    font-family: var(--font-mono);
+    font-size: .7rem;
     font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    background: rgba(245, 158, 11, 0.15);
+    border-radius: 999px;
+    color: var(--warn);
+    background: var(--warn-tint);
+    border: 1px solid rgba(168, 106, 18, .25);
+  }
+
+  .review-rating span {
+    margin-left: .3rem;
   }
 
   .review-rating.rating-red {
-    background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
+    color: var(--bad);
+    background: var(--bad-tint);
+    border-color: rgba(179, 38, 30, .22);
   }
 
   .review-rating.rating-yellow {
-    background: rgba(245, 158, 11, 0.15);
-    color: #f59e0b;
+    color: var(--warn);
+    background: var(--warn-tint);
+    border-color: rgba(168, 106, 18, .25);
   }
 
   .review-rating.rating-green {
-    background: rgba(34, 197, 94, 0.15);
-    color: #22c55e;
+    color: var(--ok);
+    background: var(--ok-tint);
+    border-color: rgba(63, 122, 58, .25);
   }
 
+  /* rating chip: sits on the hero photo and on the quick-info card */
   .rating-badge {
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-weight: 800;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.35rem;
-    font-size: 1rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    gap: .35rem;
+    padding: .3rem .85rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--warn);
+    background: rgba(254, 250, 245, .94);
+    border: 1px solid rgba(168, 106, 18, .3);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--ease), box-shadow var(--ease);
   }
 
   .rating-badge:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
   }
 
   .rating-badge.rating-red {
-    color: #ff6b6b;
-    border-color: rgba(255, 107, 107, 0.4);
-    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
-  }
-
-  .rating-badge.rating-red:hover {
-    box-shadow: 0 6px 25px rgba(255, 107, 107, 0.4);
-    background: rgba(255, 107, 107, 0.1);
+    color: var(--bad);
+    border-color: rgba(179, 38, 30, .3);
   }
 
   .rating-badge.rating-yellow {
-    color: #ffd93d;
-    border-color: rgba(255, 217, 61, 0.4);
-    box-shadow: 0 4px 20px rgba(255, 217, 61, 0.3);
-  }
-
-  .rating-badge.rating-yellow:hover {
-    box-shadow: 0 6px 25px rgba(255, 217, 61, 0.4);
-    background: rgba(255, 217, 61, 0.1);
+    color: var(--warn);
+    border-color: rgba(168, 106, 18, .3);
   }
 
   .rating-badge.rating-green {
-    color: #51cf66;
-    border-color: rgba(81, 207, 102, 0.4);
-    box-shadow: 0 4px 20px rgba(81, 207, 102, 0.3);
-  }
-
-  .rating-badge.rating-green:hover {
-    box-shadow: 0 6px 25px rgba(81, 207, 102, 0.4);
-    background: rgba(81, 207, 102, 0.1);
+    color: var(--ok);
+    border-color: rgba(63, 122, 58, .3);
   }
 
   .rating-badge span {
-    font-size: 1.25rem;
-    font-weight: 900;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
   }
 
   .rating-badge i {
-    font-size: 0.9rem;
+    font-size: .75rem;
   }
-
-  
 
   .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
   }
 
   .menu-item {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem 1.4rem;
+    transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
   }
 
   .menu-item:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: #14b8a6;
+    border-color: var(--line-strong);
     transform: translateY(-3px);
+    box-shadow: var(--shadow-sm);
   }
 
   .dish-name {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #e2e8f0;
-    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: .4rem;
   }
 
   .dish-price {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #14b8a6;
-    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0;
   }
 
   .booking-form {
@@ -285,93 +334,133 @@
   }
 
   .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #e2e8f0;
+    margin-bottom: .5rem;
+    font-family: var(--font-mono);
+    font-size: .68rem;
     font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
   }
 
   .form-group input,
   .form-group select {
     width: 100%;
-    padding: 0.75rem 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0.5rem;
-    color: #e2e8f0;
-    font-size: 1rem;
+    padding: .72rem 1rem;
+    font-family: var(--font-body);
+    font-size: .95rem;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--ease), box-shadow var(--ease);
   }
 
   .form-group input:focus,
   .form-group select:focus {
     outline: none;
-    border-color: #14b8a6;
-    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
   }
 
   .form-group input::placeholder {
-    color: #64748b;
+    color: #a89a8f;
   }
 
   .submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
     width: 100%;
-    padding: 1rem;
-    background: linear-gradient(135deg, #14b8a6 0%, #0ea5e9 100%);
-    color: white;
-    border: none;
-    border-radius: 0.75rem;
-    font-weight: 700;
-    font-size: 1rem;
+    padding: .9rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--on-accent);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    box-shadow: 0 2px 12px var(--accent-glow);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background var(--ease), transform var(--ease), box-shadow var(--ease);
   }
 
   .submit-button:hover {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(20, 184, 166, 0.4);
+    box-shadow: 0 10px 28px var(--accent-glow);
+  }
+
+  .submit-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-glow);
   }
 
   .no-reviews {
     text-align: center;
-    padding: 2rem;
-    color: #64748b;
+    padding: 2.5rem 2rem;
+    color: var(--ink-3);
+    background: var(--bg-alt);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-sm);
   }
 
   .no-reviews i {
-    font-size: 3rem;
-    color: #475569;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    color: var(--line-strong);
+    margin-bottom: .75rem;
   }
 
   .restaurant-quick-info {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    gap: 1.25rem;
   }
 
   .quick-info-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
-    padding: 1.5rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem;
     text-align: center;
   }
 
   .quick-info-label {
-    color: #94a3b8;
-    font-size: 0.85rem;
-    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: .66rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: .45rem;
   }
 
   .quick-info-value {
-    color: #e2e8f0;
+    font-family: var(--font-display);
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  @media (max-width: 576px) {
+    .details-hero {
+      height: 260px;
+    }
+
+    .hero-content {
+      padding: 1.25rem;
+    }
+
+    .info-section {
+      padding: 1.35rem;
+    }
   }
 </style>
 
@@ -410,7 +499,7 @@
 </div>
 
 <div class="info-section">
-  <h2 style="color: #e2e8f0; margin-bottom: 1.5rem;">
+  <h2 style="color: var(--ink); margin-bottom: 1.5rem;">
     <i class="fas fa-info-circle"></i> Quick Info
   </h2>
   
@@ -435,7 +524,7 @@
       {% set rating_val = restaurant.rating|float %}
       {% set rating_class = 'rating-red' if rating_val < 2.5 else 'rating-yellow' if rating_val < 3.7 else 'rating-green' %}
       <div class="quick-info-value">
-        <i class="fas fa-star" style="color: #f59e0b;"></i> <span class="rating-badge {{ rating_class }}">{{ restaurant.rating }}</span>
+        <i class="fas fa-star" style="color: var(--warn);"></i> <span class="rating-badge {{ rating_class }}">{{ restaurant.rating }}</span>
       </div>
     </div>
     {% endif %}
@@ -460,14 +549,14 @@
 
   <!-- Reviews Tab -->
   <div id="reviews" class="tab-content active">
-    <h3 style="color: #e2e8f0; margin-bottom: 1.5rem;">Customer Reviews</h3>
+    <h3 style="color: var(--ink); margin-bottom: 1.25rem;">Customer Reviews</h3>
     
     {% if reviews and reviews|length > 0 %}
     <div class="reviews-list">
       {% for review in reviews %}
       <div class="review-item">
         <div class="review-header">
-          <span style="color: #cbd5e1; font-weight: 600;">{{ review.reviewer or 'Anonymous' }}</span>
+          <span style="color: var(--ink); font-weight: 600;">{{ review.reviewer or 'Anonymous' }}</span>
           {% if review.rating %}
         {% set rating_val = review.rating|float %}
         {% set rating_class = 'rating-red' if rating_val < 2.5 else 'rating-yellow' if rating_val < 3.7 else 'rating-green' %}
@@ -484,14 +573,14 @@
         {% endif %}
         </div>
         <p class="review-text">{{ review.text[:300] }}{% if review.text|length > 300 %}...{% endif %}</p>
-        <small style="color: #64748b;">{{ review.created_at.strftime('%B %d, %Y') if review.created_at else 'Recently' }}</small>
+        <small style="color: var(--ink-3); font-family: var(--font-mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;">{{ review.created_at.strftime('%B %d, %Y') if review.created_at else 'Recently' }}</small>
       </div>
       {% endfor %}
     </div>
     {% else %}
     <div class="no-reviews">
       <i class="fas fa-star"></i>
-      <h4 style="color: #e2e8f0;">No Reviews Yet</h4>
+      <h4 style="color: var(--ink);">No Reviews Yet</h4>
       <p>Be the first to review this restaurant!</p>
     </div>
     {% endif %}
@@ -499,7 +588,7 @@
 
   <!-- Menu Tab -->
   <div id="menu" class="tab-content">
-    <h3 style="color: #e2e8f0; margin-bottom: 1.5rem;">Menu & Pricing</h3>
+    <h3 style="color: var(--ink); margin-bottom: 1.25rem;">Menu & Pricing</h3>
     
     <div class="menu-grid">
       {% if menu_items and menu_items|length > 0 %}
@@ -507,17 +596,17 @@
         <div class="menu-item">
           <div class="dish-name">{{ item.name }}</div>
           {% if item.description %}
-          <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1rem;">{{ item.description }}</p>
+          <p style="color: var(--ink-2); font-size: 0.9rem; margin-bottom: .75rem;">{{ item.description }}</p>
           {% endif %}
           <div class="dish-price">₹{{ item.price }}</div>
         </div>
         {% endfor %}
       {% else %}
-      <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 2rem; color: #64748b;">
-        <i class="fas fa-utensils" style="font-size: 3rem; color: #475569; display: block; margin-bottom: 1rem;"></i>
+      <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 2rem; color: var(--ink-3); background: var(--bg-alt); border: 1px dashed var(--line-strong); border-radius: var(--radius-sm);">
+        <i class="fas fa-utensils" style="font-size: 2.5rem; color: var(--line-strong); display: block; margin-bottom: 1rem;"></i>
         <p>Menu details will be available soon. Please check back later!</p>
         {% if restaurant.price %}
-        <p style="margin-top: 1rem;">Expected price range: <strong style="color: #14b8a6;">{{ restaurant.price }}</strong></p>
+        <p style="margin-top: 1rem;">Expected price range: <strong style="color: var(--accent);">{{ restaurant.price }}</strong></p>
         {% endif %}
       </div>
       {% endif %}
@@ -526,7 +615,7 @@
 
   <!-- Booking Tab -->
   <div id="booking" class="tab-content">
-    <h3 style="color: #e2e8f0; margin-bottom: 1.5rem;">Book a Table</h3>
+    <h3 style="color: var(--ink); margin-bottom: 1.25rem;">Book a Table</h3>
     
     <form method="POST" action="{{ url_for('user_auto_booking') }}" class="booking-form">
       <input type="hidden" name="restaurant_name" value="{{ restaurant.name }}">
@@ -564,15 +653,15 @@
       </button>
     </form>
 
-    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(20, 184, 166, 0.1); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 1rem;">
-      <i class="fas fa-info-circle" style="color: #14b8a6; margin-right: 0.5rem;"></i>
-      <span style="color: #cbd5e1;">Our AI system will confirm your booking instantly. You'll receive confirmation with booking ID and details.</span>
+    <div style="margin-top: 1.75rem; padding: 1.1rem 1.4rem; background: var(--info-tint); border: 1px solid rgba(47, 95, 138, .22); border-radius: var(--radius-sm);">
+      <i class="fas fa-info-circle" style="color: var(--info); margin-right: 0.5rem;"></i>
+      <span style="color: var(--ink-2);">Our AI system will confirm your booking instantly. You'll receive confirmation with booking ID and details.</span>
     </div>
   </div>
 
   <!-- Order Online Tab -->
   <div id="order" class="tab-content">
-    <h3 style="color: #e2e8f0; margin-bottom: 1.5rem;">Order Online</h3>
+    <h3 style="color: var(--ink); margin-bottom: 1.25rem;">Order Online</h3>
     
     <form method="POST" action="{{ url_for('user_auto_booking') }}" class="booking-form">
       <input type="hidden" name="restaurant_name" value="{{ restaurant.name }}">
@@ -610,9 +699,9 @@
       </button>
     </form>
 
-    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(20, 184, 166, 0.1); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 1rem;">
-      <i class="fas fa-info-circle" style="color: #14b8a6; margin-right: 0.5rem;"></i>
-      <span style="color: #cbd5e1;">Our AI system will process your order instantly. You'll receive confirmation with delivery time estimation.</span>
+    <div style="margin-top: 1.75rem; padding: 1.1rem 1.4rem; background: var(--info-tint); border: 1px solid rgba(47, 95, 138, .22); border-radius: var(--radius-sm);">
+      <i class="fas fa-info-circle" style="color: var(--info); margin-right: 0.5rem;"></i>
+      <span style="color: var(--ink-2);">Our AI system will process your order instantly. You'll receive confirmation with delivery time estimation.</span>
     </div>
   </div>
 </div>
